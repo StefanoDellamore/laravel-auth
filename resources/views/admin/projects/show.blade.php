@@ -1,0 +1,25 @@
+@extends('layouts.app')
+
+@section('page-title', $project->title)
+
+@section('main-content')
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="text-center text-success">
+                        {{ $project->title }}
+                    </h1>
+
+                    <h4>
+                        Slug: {{ $project->title }}
+                    </h4>
+
+                    <p>
+                        {{ $project->content }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection  

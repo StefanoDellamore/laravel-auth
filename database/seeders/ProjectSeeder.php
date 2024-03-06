@@ -7,6 +7,8 @@ use Illuminate\Database\Seeder;
 
 use App\Models\Project;
 
+use Illuminate\Support\Str;
+
 class ProjectSeeder extends Seeder
 {
     /**
@@ -14,6 +16,19 @@ class ProjectSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+
+        Project::truncate();
+        
+        for ($i = 0; $i < 10; $i++) {
+
+            $titleForMassAssignment = fake()->sentence();
+            $slugForMassAssignment = Str::slug($titleForMassAssignment);
+            $postWithMassAssignment = Project::create([
+                'title' => $titleForMassAssignment,
+                'slug' => $slugForMassAssignment,
+                'content' => fake()->paragraph(),
+                'status' => fake()->boolean(),
+            ]);
+        }
     }
 }

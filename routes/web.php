@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 // Controllers
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\Admin\MainController as AdminMainController;
+use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,11 +22,12 @@ Route::get('/', [MainController::class, 'index'])->name('home');
 
 Route::prefix('admin')
     ->name('admin.')
-    ->middleware(['auth', 'verified'])
+    ->middleware('auth')
     ->group(function () {
 
     Route::get('/dashboard', [AdminMainController::class, 'dashboard'])->name('dashboard');
 
+    Route::resource('projects', AdminProjectController::class);
 });
 
 require __DIR__.'/auth.php';

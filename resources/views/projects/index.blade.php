@@ -9,6 +9,12 @@
                 <h1 class="text-center text-primary">
                     Nostri progetti!
                 </h1>
+
+                @if ($stringHello != null)
+                    <h4 class="text-success">
+                        {{ $stringHello }}
+                    </h4>
+                @endif
                     
                @foreach ($project as $project)
                     <div class="col-12 col-xs-6">

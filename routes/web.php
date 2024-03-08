@@ -7,7 +7,6 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\Admin\MainController as AdminMainController;
 use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
-use App\Http\Controllers\ProjectContoller;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +24,8 @@ Route::get('/', [MainController::class, 'index'])->name('home');
 Route::prefix('projects')
     ->name('projects.')
     ->group(function(){
-    Route::get('/', [ProjectContoller::class, 'index'])->name('index');
+    Route::get('/', [ProjectController::class, 'index'])->name('index');
+    Route::get('/{project}', [ProjectController::class, 'show'])->name('show');
 });
 
 Route::prefix('admin')

@@ -3,9 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\controller;
+use App\Http\Controllers\Controller;
 
+//Models
 use App\Models\Project;
+
+//Helpers
+
+use Illuminate\Support\Str;
 
 class ProjectController extends Controller
 {
@@ -31,16 +36,26 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $projectData = $request->all();
+
+        $slug = Str::slug($projectData['title']);
+        
+        $existingSlug = Project::where('slug', $slug)->first();
+        if($existingSlug == null) {
+           //Genera slug nuovo
+        }
+
+        $project = Project::create([
+            'title'=>$projectData['title'],
+            'slug'=>Str::slug($projectData['title']),
+        ]);   
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $slug)
+    public function show(Project $project)
     {
-        $project = Project::where('slug', $slug)->firstOrFail();
-
         return view('admin.projects.show', compact('project'));
     }
 

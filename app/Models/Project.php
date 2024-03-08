@@ -9,10 +9,11 @@ class Project extends Model
 {
     use HasFactory;
 
+    //Colonne abilitate al mass-assigment
     protected $fillable = [
         'title',
         'slug',
         'content',
-        'status'
+        'status',
     ];
 }

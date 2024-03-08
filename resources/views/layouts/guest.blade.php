@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>@yield('page-title') | {{ config('app.name', 'Laravel') }}</title>
 
         <!-- Scripts -->
         @vite('resources/js/app.js')
@@ -20,16 +20,18 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarText">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('projects.index') }}">Progetti</a>
                             </li>
+
                             @auth
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('admin.dashboard') }}">Dashboard</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">Link 2</a>
-                                </li> 
+                                </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">Link 3</a>
                                 </li>

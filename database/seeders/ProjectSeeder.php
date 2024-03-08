@@ -5,10 +5,11 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
+//models
 use App\Models\Project;
 
+//Helpers
 use Illuminate\Support\Str;
-
 class ProjectSeeder extends Seeder
 {
     /**
@@ -16,19 +17,18 @@ class ProjectSeeder extends Seeder
      */
     public function run(): void
     {
-
         Project::truncate();
-        
-        for ($i = 0; $i < 10; $i++) {
-
-            $titleForMassAssignment = fake()->sentence();
-            $slugForMassAssignment = Str::slug($titleForMassAssignment);
-            $postWithMassAssignment = Project::create([
-                'title' => $titleForMassAssignment,
-                'slug' => $slugForMassAssignment,
+        for ($i=0; $i < 10; $i++) {
+            
+            $title = fake()->sentence();
+            $slug = Str::slug($title);
+            
+            $project = Project::create([
+                'title' => $title,
+                'slug' => $slug,
                 'content' => fake()->paragraph(),
                 'status' => fake()->boolean(),
-            ]);
+                ]);
         }
     }
 }

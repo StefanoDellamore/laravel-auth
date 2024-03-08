@@ -2,35 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 //Models
 use App\Models\Project;
-use Illuminate\Support\Facades\Auth;
-//Helpers
+
+use Illuminate\Http\Request;
+
+// Helper
 use Illuminate\Support\Str;
 
 class ProjectController extends Controller
 {
-    public function index ()
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
     {
-        $project = Project::all();
-
-        $stringHello = null;
-        if(Auth::check()) {
-            $user = Auth::user();
-            $stringHello = 'Ciao '.$user->name. '!';
-        }
-
-
-        return view('projects.index',compact('project', 'stringHello'));
+        $projects = Project::all();
+        
+        return view("projects.index", compact("projects"));
     }
 
-    public function show (string $slug)
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $slug)
     {
         $project = Project::where('slug', $slug)->firstOrFail();
 
-        //dd(Str::slug('hello'));
-        return view('projects.show', compact('project'));
+        return view("projects.show", compact("project"));
     }
 }

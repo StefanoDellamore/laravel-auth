@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+// Form Request
+use App\Http\Requests\StoreProjectRequest;
+use App\Http\Requests\UpdateProjectRequest;
+
 //Models
 use App\Models\Project;
 
@@ -28,58 +32,66 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.projects.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreProjectRequest $request)
     {
-        $projectData = $request->all();
+        $projectData = $request->validated();
 
-        $slug = Str::slug($projectData['title']);
-        
-        $existingSlug = Project::where('slug', $slug)->first();
-        if($existingSlug == null) {
-           //Genera slug nuovo
-        }
+        $projectData['slug'] = Str::slug($projectData['title']);
 
-        $project = Project::create([
-            'title'=>$projectData['title'],
-            'slug'=>Str::slug($projectData['title']),
-        ]);   
+        $project = Project::create($projectData);
+
+        return redirect()->route('admin.projects.show', ['project' => $project->slug]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Project $project)
+    public function show(string $slug)
     {
+        $project = Project::where('slug', $slug)->firstOrFail();
         return view('admin.projects.show', compact('project'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Project $project)
+    public function edit(string $slug)
     {
-        //
+        $project = Project::where('slug', $slug)->firstOrFail();
+
+        return view('admin.projects.edit', compact('project'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Project $project)
+    public function update(UpdateProjectRequest $request, string $slug)
     {
-        //
+        $projectData = $request->validated();
+
+        $project = Project::where('slug', $slug)->firstOrFail();
+
+        $projectData['slug'] = Str::slug($projectData['title']);
+
+        $project->update($projectData);
+
+        return redirect()->route('admin.projects.show',['project'=>$project->slug]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Project $project)
+    public function destroy(string $slug)
     {
-        //
+        $project = Project::where('slug', $slug)->firstOrFail();
+        $project->delete();
+
+        return redirect() -> route('admin.projects.index');
     }
 }

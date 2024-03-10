@@ -4,10 +4,10 @@
 
 @section('main-content')
     <section id="index-admin">
+        
         <div id="add">
-            <a href="{{ route('admin.projects.create') }}" class="add-button mb-5">
-                <span>Aggiungi</span>
-                <i class="fa-solid fa-plus"></i>
+            <a href="{{ route('admin.projects.create') }}" class="btn btn-warning mb-3">
+                Aggiungi
             </a>
         </div>
 
@@ -24,11 +24,14 @@
                                 {{ $project->content }}
                             </p>
 
-                            <a href="{{ route('admin.projects.show', ['project' => $project->slug]) }}" class="show-button">
-                                Mostra
-                            </a>
+                            
 
-                            <div class="edit-buttons-container d-flex flex-column align-items-end">
+                            <div class="edit-buttons-container d-flex justify-content-between">
+
+                                <a href="{{ route('admin.projects.show', ['project' => $project->slug]) }}" class="btn btn-primary">
+                                    Mostra
+                                </a>
+
                                 <a href="{{ route('admin.projects.edit', ['project' => $project->slug]) }}" class="edit-button mb-2">
                                     <i class="fa-solid fa-pencil"></i>
                                 </a>
@@ -41,8 +44,8 @@
                                 @csrf
                                 @method('DELETE')
 
-                                <button type="submit" class="erase-button">
-                                    <i class="fa-solid fa-eraser"></i>
+                                <button type="submit" class="btn btn-danger">
+                                    Elimina
                                 </button>
                                 
                                 </form>

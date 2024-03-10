@@ -14,7 +14,7 @@
                     
                @foreach ($projects as $project)
                     <div class="col-12 col-xs-6">
-                        <div class="card">
+                        <div class="card mb-4">
                             <div class="card-body">
                                 <h4>
                                     {{ $project->title }}
